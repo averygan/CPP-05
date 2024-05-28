@@ -86,8 +86,6 @@ void	Form::beSigned(Bureaucrat const &obj)
 	}
 	else
 	{
-		// std::cout << RED << this->name << " unable to sign " << obj.getName() 
-		// 	<< RESET << std::endl;
 		throw GradeTooLowException();
 	}
 
@@ -95,12 +93,12 @@ void	Form::beSigned(Bureaucrat const &obj)
 
 const char *Form::GradeTooHighException::what() const throw()
 {
-	return "exception: grade too high";
+	return "grade is too high";
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return "exception: grade too low";	
+	return "grade is too low";	
 }
 
 std::ostream &operator <<(std::ostream &os, const Form &obj)
