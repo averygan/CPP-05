@@ -27,7 +27,7 @@ SRC_DIR = ./sources
 # build files
 SRCS	= $(addprefix $(SRC_DIR)/, \
 	Bureaucrat.cpp \
-	main.cpp
+	main.cpp \
 	Form.cpp)
 OBJS 	= ${SRCS:.cpp=.o}
 

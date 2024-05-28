@@ -15,18 +15,22 @@
 
 #include <iostream>
 #include <string>
+#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {
 private:
 	const std::string	name;
-	bool				signed;
+	bool				is_signed;
 	const int			grade_sign;
 	const int			grade_exec;
 
 public:
 	// Constructor
 	Form();
+	Form(std::string name, int g_sign, int g_exec);
 	Form(const Form &copy);
 
 	// Destructor
@@ -39,24 +43,24 @@ public:
 	class GradeTooHighException : public std::exception
 	{
 		virtual const char *what() const throw();
-	}
+	};
 
 	class GradeTooLowException : public std::exception
 	{
 		virtual const char *what() const throw();
-	}
+	};
 
 	// Getters
-	const std::string	getName();
-	bool				getSigned();
-	const int			getGradeSign();
-	const int			getGradeExec();
+	const std::string	getName() const;
+	bool				getSigned() const;
+	int					getGradeSign() const;
+	int					getGradeExec() const;
 
 	// Member function
-	void	beSigned(&Bureaucrat const obj)
+	void	beSigned(Bureaucrat const &obj);
 };
 
 // Insertion stream overload
-std::ostream &operator<<(std::ostream os, const Form &val);
+std::ostream &operator <<(std::ostream &os, const Form &obj);
 
 #endif

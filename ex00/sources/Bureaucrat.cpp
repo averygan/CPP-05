@@ -23,28 +23,35 @@ Bureaucrat::Bureaucrat() : name("Nameless"), grade(150)
 Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(150)
 {
 	if (grade > 150)
-		throw GradeTooHighException();
-	else if (grade < 0)
 		throw GradeTooLowException();
+	else if (grade < 1)
+		throw GradeTooHighException();
 	else
 	{
+		this->grade = grade;
 		std::cout << this->name << " created with grade: " << this->grade 
 		<< std::endl;
 	}
 }
 
 // Destructor
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat() 
+{
+	std::cout << "Bureaucrat destructor called" << std::endl;
+}
+
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : name(copy.name)
 {
+	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
 }
 
 // Copy assignment operator overload
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 {
+	std::cout << "Bureaucrat copy assignment operator called" << std::endl;
 	this->grade = copy.grade;
 	return *this;
 }
@@ -64,7 +71,7 @@ int Bureaucrat::getGrade() const
 void Bureaucrat::increment()
 {
 	// if grade too high
-	if (this->grade - 1 < 0)
+	if (this->grade - 1 < 1)
 		throw GradeTooHighException();
 	else
 	{

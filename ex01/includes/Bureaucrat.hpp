@@ -29,6 +29,13 @@
 # define BLUE_R	"\033[34m"
 # define CYAN_R	"\033[36m"
 
+# define HIGHEST_GRADE 1
+# define LOWEST_GRADE 150
+
+#include "Form.hpp"
+
+class Form;
+
 class Bureaucrat
 {
 private:
@@ -69,10 +76,10 @@ public:
 	};
 
 	// Member functions
-	void signForm();
+	void signForm(Form &form);
 };
 
 // Insertion overload
-std::ostream &operator<<(std::ostream &os, const Bureaucrat &val);
+std::ostream &operator <<(std::ostream &os, const Bureaucrat &obj);
 
 #endif

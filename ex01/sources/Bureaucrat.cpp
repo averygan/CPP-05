@@ -13,38 +13,46 @@
 #include "Bureaucrat.hpp"
 
 // Default constructor
-Bureaucrat::Bureaucrat() : name("Nameless"), grade(150) 
+Bureaucrat::Bureaucrat() : name("Nameless"), grade(LOWEST_GRADE) 
 {
-	std::cout << this->name << " created with grade: " << this->grade 
+	std::cout << "Bureaucrat " << \
+		this->name << " created with grade: " << this->grade 
 		<< std::endl;
 }
 
 // Parameterized constructor
-Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(150)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(LOWEST_GRADE)
 {
-	if (grade > 150)
-		throw GradeTooHighException();
-	else if (grade < 0)
+	if (grade > LOWEST_GRADE)
 		throw GradeTooLowException();
+	else if (grade < HIGHEST_GRADE)
+		throw GradeTooHighException();
 	else
 	{
-		std::cout << this->name << " created with grade: " << this->grade 
+		this->grade = grade;
+		std::cout << "Bureaucrat " << \
+		this->name << " created with grade: " << this->grade 
 		<< std::endl;
 	}
 }
 
 // Destructor
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat() 
+{
+	std::cout << "Bureaucrat destructor called" << std::endl;
+}
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : name(copy.name)
 {
+	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
 }
 
 // Copy assignment operator overload
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 {
+	std::cout << "Bureaucrat copy assignment operator called" << std::endl;
 	this->grade = copy.grade;
 	return *this;
 }
@@ -64,7 +72,7 @@ int Bureaucrat::getGrade() const
 void Bureaucrat::increment()
 {
 	// if grade too high
-	if (this->grade - 1 < 0)
+	if (this->grade - 1 < HIGHEST_GRADE)
 		throw GradeTooHighException();
 	else
 	{
@@ -77,7 +85,7 @@ void Bureaucrat::increment()
 void Bureaucrat::decrement()
 {
 	// if grade too low
-	if (this->grade + 1 > 150)
+	if (this->grade + 1 > LOWEST_GRADE)
 		throw GradeTooLowException();
 	else 
 	{
@@ -103,4 +111,17 @@ std::ostream &operator <<(std::ostream &os, const Bureaucrat &obj)
 	os << CYAN << "bureaucrat: " << obj.getName() << 
 		" (grade: " << obj.getGrade() << ")" << RESET;
 	return os;
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+	try
+	{
+		form.beSigned(*this);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << RED << this->name << " unable to sign " << form.getName() \
+			<< " because of " << e.what() << std::endl;
+	}
 }
