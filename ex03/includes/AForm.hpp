@@ -17,6 +17,8 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
+# define FORM_COUNT 3
+
 class Bureaucrat;
 
 class AForm

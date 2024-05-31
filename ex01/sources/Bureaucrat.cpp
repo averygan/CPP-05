@@ -52,6 +52,8 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy) : name(copy.name)
 // Copy assignment operator overload
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 {
+	if (this == &copy)
+		return *this;
 	std::cout << "Bureaucrat copy assignment operator called" << std::endl;
 	this->grade = copy.grade;
 	return *this;
